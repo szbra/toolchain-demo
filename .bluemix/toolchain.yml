@@ -19,7 +19,7 @@ orders-api.repo:
     fork: skaegi/Microservices_OrdersAPI
     visibility: private
     has_issues: false
-        
+
 ui.repo:
   tool: github
   parameters:
@@ -75,7 +75,7 @@ webide:
   tool: orion
   parameters:
     name: Web IDE
-        
+
 #Deployment
 catalog-api.deploy:
   tool: cf
@@ -91,4 +91,3 @@ ui.deploy:
 orders-api.deploy:
   tool: cf
   metadata: orders-api.manifest.yml
-
