@@ -5,79 +5,90 @@ image: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAv0AAAHICAMAAADqR6WlAAAC+lB
 
 # Github repos
 catalog-api.repo:
-    tool: github
-    parameters:
-        name: catalog-api
-        fork: skaegi/Microservices_CatalogAPI
-        visibility: private
-        has_issues: false
+  tool: github
+  parameters:
+    name: catalog-api
+    fork: skaegi/Microservices_CatalogAPI
+    visibility: private
+    has_issues: false
 
-order-api.repo:
-    tool: github
-    parameters:
-        name: order-api
-        fork: skaegi/Microservices_OrdersAPI
-        visibility: private
-        has_issues: false
+orders-api.repo:
+  tool: github
+  parameters:
+    name: orders-api
+    fork: skaegi/Microservices_OrdersAPI
+    visibility: private
+    has_issues: false
         
 ui.repo:
-    tool: github
-    parameters:
-        name: ui
-        fork: skaegi/Microservices_UI
-        visibility: private
-        has_issues: true
+  tool: github
+  parameters:
+    name: ui
+    fork: skaegi/Microservices_UI
+    visibility: private
+    has_issues: true
 
+#Active Deploy
+activedeploy:
+  tool: activedeploy
+  parameters:
+    name: active deploy
+	
 # Pipelines
 ui.build:
- tool: pipeline
- metadata: ui.pipeline.yml
- bind:
-   - ui.repo
-   - test
-   - messaging
-   - ui.deploy
+  tool: pipeline
+  metadata: ui.pipeline.yml
+  bind:
+  - ui.repo
+  - test
+  - messaging
+  - ui.deploy
 
 catalog-api.build:
-    tool: pipeline
-    metadata: catalog-api.pipeline.yml
-    bind: 
-       - messaging
-       - catalog-api.repo
-       - catalog-api.deploy
+  tool: pipeline
+  metadata: catalog-api.pipeline.yml
+  bind: 
+  - messaging
+  - catalog-api.repo
+  - catalog-api.deploy
 
-order-api.build:
-    tool: pipeline
-    metadata: order-api.pipeline.yml
-    bind: 
-       - order-api.repo
-       - messaging
-       - order-api.deploy
+orders-api.build:
+  tool: pipeline
+  metadata: orders-api.pipeline.yml
+  bind: 
+  - orders-api.repo
+  - messaging
+  - orders-api.deploy
 
 #Slack
 messaging:
   tool: slack
   metadata: slack.yml
 
-#Sauce Laps
+#Sauce Labs
 test:
- tool: saucelabs
- metadata: saucelabs.yml
+  tool: saucelabs
+  metadata: saucelabs.yml
 
-
+# WebIDE
+webide:
+  tool: orion
+  parameters:
+    name: Web IDE
+        
 #Deployment
 catalog-api.deploy:
-   tool: cf
-   metadata: catalog.manifest.yml
+  tool: cf
+  metadata: catalog-api.manifest.yml
 
 ui.deploy:
   tool: cf
   metadata: ui.manifest.yml
-  bind:  
-   - catalog-api.deploy
-   - order-api.deploy
+  bind:
+  - catalog-api.deploy
+  - orders-api.deploy
 
-order-api.deploy:
+orders-api.deploy:
   tool: cf
-  metadata: order.manifest.yml
+  metadata: orders-api.manifest.yml
 
