@@ -2,7 +2,7 @@
 name: "Cloud-native Toolchain for Microservices"
 description: "With this toolchain, you can create an online store that consists of three microservices: a Catalog API, an Orders API, and a UI that calls both of the APIs. The toolchain is preconfigured for continuous delivery, source control, blue-green deployment, functional testing, issue tracking, online editing, and messaging.\n\nTo get started, click **Create**."
 version: 0.2
-image: $file(image/pzg,toolchain.png)
+image: $file(image/png,toolchain2.png)
 
 required:
  - deploy
